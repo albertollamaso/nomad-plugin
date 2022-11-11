@@ -1,0 +1,56 @@
+
+- required_engine_version: 15
+
+- required_plugin_versions:
+  - name: nomad
+    version: 0.1.0
+  - name: json
+    version: 0.2.0
+
+- macro: nomad_alloc_updated
+  condition: nomad.event.topic="Allocation" 
+    and nomad.event.type="AllocationUpdated" 
+    and nomad.alloc.clientStatus="running" 
+    and (nomad.alloc.taskStates.type in ("Driver"))
+
+- list: nomad_allowed_repositories
+  items: [
+    "123456789123.dkr.ecr.eu-central-1.amazonaws.com/",
+    "123456789123.dkr.ecr.eu-central-1.amazonaws.com/subpath"
+    ]
+
+- rule: Nomad Allocation with Non-Allowed Image
+  desc: Rule description here.
+  condition: >
+    nomad_alloc_updated
+    and not (nomad.alloc.images.repositories intersects (nomad_allowed_repositories))
+  output: 'index=%nomad.index, repo=%nomad.alloc.images.repositories, image=%nomad.alloc.images, tag=%nomad.alloc.images.tags, namespace=%nomad.alloc.namespace, name=%nomad.alloc.name, jobID=%nomad.alloc.jobID'
+  priority: INFO
+  source: nomad
+  tags: [nomad]
+
+
+- rule: Nomad Allocation using more than CPU 100 Mhz
+  desc: Rule description here.
+  condition: >
+    nomad.event.topic="Allocation"
+    and nomad.event.type="AllocationUpdated"
+    and nomad.alloc.clientStatus="running"
+    and nomad.alloc.res.cpu > 100
+  output: 'index=%nomad.index, namespace=%nomad.alloc.namespace, name=%nomad.alloc.name, jobID=%nomad.alloc.jobID, cpu=%nomad.alloc.res.cpu'
+  priority: INFO
+  source: nomad
+  tags: [nomad]
+
+
+- rule: Nomad Allocation using more than equal 300 MB memory
+  desc: Rule description here.
+  condition: >
+    nomad.event.topic="Allocation"
+    and nomad.event.type="AllocationUpdated"
+    and nomad.alloc.clientStatus="running"
+    and nomad.alloc.res.memoryMB >= 300
+  output: 'index=%nomad.index, namespace=%nomad.alloc.namespace, name=%nomad.alloc.name, jobID=%nomad.alloc.jobID, memoryMB=%nomad.alloc.res.memoryMB'
+  priority: INFO
+  source: nomad
+  tags: [nomad]
