@@ -1,58 +1,53 @@
 run:
+  # timeout defines the linter timeout. Default: 1m
   timeout: 5m
-  modules-download-mode: readonly
 
 linters-settings:
-  goconst:
-    min-len: 2
-    min-occurrences: 2
-  gofmt:
-    simplify: true
-  goimports:
-    local-prefixes: github.com/Issif/falco-talon
-  golint:
-    min-confidence: 0
-  govet:
-    check-shadowing: true
-    enable-all: true
-  misspell:
-    locale: US
+  cyclop:
+    # The maximal code complexity to report.
+    # Default: 10
+    max-complexity: 30
+    # The maximal average package complexity.
+    # If it's higher than 0.0 (float) the check is enabled
+    # Default: 0.0
+    package-average: 10.0
+
+  funlen:
+    # Checks the number of lines in a function.
+    # If lower than 0, disable the check.
+    # Default: 60
+    lines: 100
+    # Checks the number of statements in a function.
+    # If lower than 0, disable the check.
+    # Default: 40
+    statements: 50
 
 linters:
-  disable-all: true
-  enable:
-    - bodyclose
-    - errcheck
-    - goconst
-    - gocritic
-    - gofmt
-    - goimports
-    - revive
-    - gosec
-    - gosimple
-    - govet
-    - ineffassign
-    - misspell
-    - nakedret
-    - staticcheck
-    - stylecheck
-    - typecheck
-    - unconvert
-    - unused
-    - whitespace
+  enable-all: true
+  disable:
+    - deadcode
+    - exhaustivestruct
+    - exhaustruct
+    - goerr113
+    - golint
+    - gomnd
+    - gomoddirectives
+    - ifshort
+    - interfacer
+    - maligned
+    - nosnakecase
+    - rowserrcheck
+    - scopelint
+    - sqlclosecheck
+    - structcheck
+    - varcheck
+    - varnamelen
+    - wastedassign
+    - gochecknoglobals
 
 issues:
   exclude-rules:
-    - path: server/manifest.go
-      linters:
-        - deadcode
-        - unused
-        - varcheck
-    - path: server/configuration.go
-      linters:
-        - unused
+    # Exclude some linters from running on tests files.
     - path: _test\.go
       linters:
-        - bodyclose
-        - goconst
-        - scopelint # https://github.com/kyoh86/scopelint/issues/4
+        - testpackage
