@@ -1,0 +1,26 @@
+- name: nomad
+  type: plugin
+  registry: ghcr.io
+  repository: albertollamaso/nomad-plugin/plugin/nomad
+  description: Reads events from Nomad
+  home: https://github.com/albertollamaso/nomad-plugin
+  keywords:
+    - nomad
+  license: Apache-2.0
+  maintainers:
+    - name: Alberto Llamas
+  sources:
+    - https://github.com/albertollamaso/nomad-plugin
+- name: nomad-rules
+  type: rulesfile
+  registry: ghcr.io
+  repository: albertollamaso/nomad-plugin/ruleset/nomad
+  description: Rules for the Nomad plugin
+  home: https://github.com/albertollamaso/nomad-plugin/tree/main/rules
+  keywords:
+    - nomad
+  license: Apache-2.0
+  maintainers:
+    - name: Alberto Llamas
+  sources:
+    - https://github.com/albertollamaso/nomad-plugin/tree/main/rules/nomad_rules.yaml
