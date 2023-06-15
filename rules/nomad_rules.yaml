@@ -3,9 +3,9 @@
 
 - required_plugin_versions:
   - name: nomad
-    version: 0.1.0
-  - name: json
     version: 0.2.0
+  - name: json
+    version: 0.7.0
 
 - macro: nomad_alloc_updated
   condition: nomad.event.topic="Allocation" 

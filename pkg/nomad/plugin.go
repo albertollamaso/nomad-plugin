@@ -10,11 +10,11 @@ const (
 	// note: 999 is for development only. Once released, plugins need to
 	// get assigned an ID in the public Falcosecurity registry.
 	// See: https://github.com/falcosecurity/plugins#plugin-registry
-	PluginID          uint32 = 999
+	PluginID          uint32 = 10
 	PluginName               = "nomad"
 	PluginDescription        = "Falcosecurity Nomad Plugin"
 	PluginContact            = "github.com/albertollamaso/nomad-plugin"
-	PluginVersion            = "0.1.0"
+	PluginVersion            = "0.2.0"
 	PluginEventSource        = "nomad"
 )
 

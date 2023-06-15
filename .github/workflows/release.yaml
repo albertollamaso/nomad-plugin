@@ -1,0 +1,96 @@
+name: Release Plugins
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+  
+env:
+  OCI_REGISTRY: ghcr.io
+  PLUGIN_NAME: nomad
+    
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  publish-oci-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Falcoctl Repo
+        uses: actions/checkout@v3
+        with:
+          repository: falcosecurity/falcoctl
+          ref: v0.5.1
+          path: tools/falcoctl
+      - name: Setup Golang
+        uses: actions/setup-go@v4
+        with:
+          go-version: '^1.20'
+          cache-dependency-path: tools/falcoctl/go.sum
+      - name: Build falcoctl
+        run: make
+        working-directory: tools/falcoctl
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: plugin
+      - name: Build the plugin
+        run: make build
+        working-directory: plugin
+      - id: StringRepoName
+        uses: ASzc/change-string-case-action@v5
+        with:
+          string: ${{ github.repository }}
+      - name: Upload OCI artifacts to GitHub packages
+        run: |
+              MAJOR=$(echo ${{ github.ref_name }} | cut -f1 -d".")
+              MINOR=$(echo ${{ github.ref_name }} | cut -f1,2 -d".")
+              DIR=$(pwd)
+
+              cd plugin/
+              $DIR/tools/falcoctl/falcoctl registry push \
+              ${{ env.OCI_REGISTRY }}/${{ steps.StringRepoName.outputs.lowercase }}/plugin/${{ env.PLUGIN_NAME }}:${{ github.ref_name }} \
+              --config /dev/null \
+              --type plugin \
+              --version "${{ github.ref_name }}" \
+              --tag latest --tag $MAJOR --tag $MINOR \
+              --platform linux/amd64 \
+              --requires plugin_api_version:2.0.0 \
+              --depends-on ${{ env.PLUGIN_NAME }}-rules:${{ github.ref_name }} \
+              --name ${{ env.PLUGIN_NAME }} \
+              lib${{ env.PLUGIN_NAME }}.so
+              
+              cd rules/
+              $DIR/tools/falcoctl/falcoctl registry push \
+              ${{ env.OCI_REGISTRY }}/${{ steps.StringRepoName.outputs.lowercase }}/ruleset/${{ env.PLUGIN_NAME }}:${{ github.ref_name }} \
+              --config /dev/null \
+              --type rulesfile \
+              --version "${{ github.ref_name }}" \
+              --tag latest --tag $MAJOR --tag $MINOR \
+              --depends-on ${{ env.PLUGIN_NAME }}:${{ github.ref_name }} \
+              --name ${{ env.PLUGIN_NAME }}-rules \
+              ${{ env.PLUGIN_NAME }}_rules.yaml
+        env:
+          FALCOCTL_REGISTRY_AUTH_BASIC: ${{ env.OCI_REGISTRY }},${{ github.repository_owner }},${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19'
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v4
+        with:
+          version: latest
+          args: release --clean --timeout 120m
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LDFLAGS: "-buildmode=c-shared"
+          GOPATH: /home/runner/go

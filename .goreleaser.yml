@@ -1,0 +1,12 @@
+builds:
+  - env:
+      - GODEBUG=cgocheck=0
+    main: ./plugin
+    binary: libnomad.so
+    goos:
+      - linux
+    goarch:
+      - amd64
+    flags: -buildmode=c-shared
+checksum:
+  name_template: "checksums.txt"
