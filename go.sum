@@ -23,6 +23,8 @@ github.com/hashicorp/go-rootcerts v1.0.2 h1:jzhAVGtqPKbwpyCPELlgNWhE1znq+qwJtW5O
 github.com/hashicorp/go-rootcerts v1.0.2/go.mod h1:pqUvnprVnM5bf7AOirdbb01K4ccR319Vf4pU3K5EGc8=
 github.com/hashicorp/nomad/api v0.0.0-20230615131811-288ff2f0c437 h1:zKGebmv70+p0/vEqhnpCSUvMGgmNvwaeNd8f9ElChIs=
 github.com/hashicorp/nomad/api v0.0.0-20230615131811-288ff2f0c437/go.mod h1:Xjd3OXUTfsWbCCBsQd3EdfPTz5evDi+fxqdvpN+WqQg=
+github.com/hashicorp/nomad/api v0.0.0-20230626210001-d06dfd2abc1f h1:Wfl1jbxcB+74hEJzKuB4mWc8Som/ph0sKkoM32tUP3E=
+github.com/hashicorp/nomad/api v0.0.0-20230626210001-d06dfd2abc1f/go.mod h1:Xjd3OXUTfsWbCCBsQd3EdfPTz5evDi+fxqdvpN+WqQg=
 github.com/iancoleman/orderedmap v0.0.0-20190318233801-ac98e3ecb4b0/go.mod h1:N0Wam8K1arqPXNWjMo21EXnBPOPp36vB07FNRdD2geA=
 github.com/iancoleman/orderedmap v0.2.0 h1:sq1N/TFpYH++aViPcaKjys3bDClUEU7s5B+z6jq8pNA=
 github.com/iancoleman/orderedmap v0.2.0/go.mod h1:N0Wam8K1arqPXNWjMo21EXnBPOPp36vB07FNRdD2geA=
