@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/alecthomas/jsonschema v0.0.0-20220216202328-9eeeec9d044b
 	github.com/falcosecurity/plugin-sdk-go v0.7.1
-	github.com/hashicorp/nomad/api v0.0.0-20230712165608-159bf511200b
+	github.com/hashicorp/nomad/api v0.0.0-20230714175125-1e7726ce93d9
 )
 
 require (
