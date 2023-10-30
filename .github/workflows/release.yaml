@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Falcoctl Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: falcosecurity/falcoctl
           ref: v0.5.1
@@ -32,7 +32,7 @@ jobs:
         run: make
         working-directory: tools/falcoctl
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: plugin
       - name: Build the plugin
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup Golang
