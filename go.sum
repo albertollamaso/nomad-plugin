@@ -41,6 +41,8 @@ github.com/hashicorp/nomad/api v0.0.0-20231030145422-f0330d6df1bb h1:e5G6+1z7wAu
 github.com/hashicorp/nomad/api v0.0.0-20231030145422-f0330d6df1bb/go.mod h1:glQSmiY2VCQDT0MBiWKr5YDU9PpwVNOcrovlDczoKoI=
 github.com/hashicorp/nomad/api v0.0.0-20231108005019-ab36cf031c80 h1:5+ZMsTsazHCnWSNDfkmXrnBD4mQerYcqKvK0PsS5nM0=
 github.com/hashicorp/nomad/api v0.0.0-20231108005019-ab36cf031c80/go.mod h1:ijDwa6o1uG1jFSq6kERiX2PamKGpZzTmo0XOFNeFZgw=
+github.com/hashicorp/nomad/api v0.0.0-20231124103927-cfbb2e8923d2 h1:8u3TJoMtrGHIHy3UI5t6Zg5udDY5pQpy2gcEJMze6c4=
+github.com/hashicorp/nomad/api v0.0.0-20231124103927-cfbb2e8923d2/go.mod h1:ijDwa6o1uG1jFSq6kERiX2PamKGpZzTmo0XOFNeFZgw=
 github.com/iancoleman/orderedmap v0.0.0-20190318233801-ac98e3ecb4b0/go.mod h1:N0Wam8K1arqPXNWjMo21EXnBPOPp36vB07FNRdD2geA=
 github.com/iancoleman/orderedmap v0.2.0 h1:sq1N/TFpYH++aViPcaKjys3bDClUEU7s5B+z6jq8pNA=
 github.com/iancoleman/orderedmap v0.2.0/go.mod h1:N0Wam8K1arqPXNWjMo21EXnBPOPp36vB07FNRdD2geA=
